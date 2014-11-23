@@ -1,4 +1,6 @@
 local Application = require "Application"
+local GameScreen = require "GameScreen"
+local ScreenFactory = require "ScreenFactory"
 local TitleScreen = require "TitleScreen"
 
 function love.load()
@@ -11,7 +13,11 @@ function love.load()
 
     local screen = TitleScreen.new()
 
-    application = Application.new()
+    local screenFactory = ScreenFactory.new()
+    screenFactory:setCreator("game", GameScreen.new)
+    screenFactory:setCreator("title", TitleScreen.new)
+
+    application = Application.new(screenFactory)
     application:setScreen(screen)
 end
 
@@ -21,4 +27,12 @@ end
 
 function love.draw()
     application:draw()
+end
+
+function love.keypressed(key, isrepeat)
+    application:keypressed(key, isrepeat)
+end
+
+function love.keyreleased(key, isrepeat)
+    application:keyreleased(key, isrepeat)
 end
