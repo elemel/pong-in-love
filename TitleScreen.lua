@@ -1,9 +1,12 @@
 local TitleScreen = {}
 TitleScreen.__index = TitleScreen
 
-function TitleScreen.new()
+function TitleScreen.new(config)
     local screen = {}
     setmetatable(screen, TitleScreen)
+
+    screen._config = config
+
     return screen
 end
 
@@ -27,13 +30,13 @@ end
 function TitleScreen:draw()
     local windowWidth, windowHeight = love.window.getDimensions()
     local fontSize = 0.25 * windowHeight
-    love.graphics.setFont(love.graphics.newFont(fontSize))
+    love.graphics.setFont(self._application:createFont(fontSize))
     love.graphics.printf("PONG", 0, 0.5 * windowHeight - 0.5 * fontSize, windowWidth, "center")
 end
 
 function TitleScreen:keypressed(key, isrepeat)
     if key == "right" and not isrepeat then
-        local screen = self._application:createScreen("game")
+        local screen = self._application:createScreen("game", {})
         self._application:setScreen(screen)
     end
 end

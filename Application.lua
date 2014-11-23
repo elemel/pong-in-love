@@ -1,23 +1,22 @@
-local ScreenFactory = require "ScreenFactory"
-
 local Application = {}
 Application.__index = Application
 
-function Application.new(screenFactory)
+function Application.new(screenFactory, fontFactory)
     local application = {}
     setmetatable(application, Application)
 
     application._screenFactory = screenFactory
+    application._fontFactory = fontFactory
 
     return application
 end
 
-function Application:getScreenFactory()
-    return self._screenFactory
-end
-
 function Application:createScreen(name)
     return self._screenFactory:create(name)
+end
+
+function Application:createFont(name)
+    return self._fontFactory:create(name)
 end
 
 function Application:getScreen()

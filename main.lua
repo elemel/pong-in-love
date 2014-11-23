@@ -1,4 +1,5 @@
 local Application = require "Application"
+local FontFactory = require "FontFactory"
 local GameScreen = require "GameScreen"
 local ScreenFactory = require "ScreenFactory"
 local TitleScreen = require "TitleScreen"
@@ -17,7 +18,8 @@ function love.load()
     screenFactory:setCreator("game", GameScreen.new)
     screenFactory:setCreator("title", TitleScreen.new)
 
-    application = Application.new(screenFactory)
+    local fontFactory = FontFactory.new()
+    application = Application.new(screenFactory, fontFactory)
     application:setScreen(screen)
 end
 
