@@ -1,3 +1,6 @@
+local Application = require "Application"
+local TitleScreen = require "TitleScreen"
+
 function love.load()
     love.window.setTitle("PONG")
     love.window.setMode(800, 600, {
@@ -5,11 +8,17 @@ function love.load()
         fullscreentype = "desktop",
         resizable = true,
     })
+
+    local screen = TitleScreen.new()
+
+    application = Application.new()
+    application:setScreen(screen)
+end
+
+function love.update(dt)
+    application:update(dt)
 end
 
 function love.draw()
-    local windowWidth, windowHeight = love.window.getDimensions()
-    local fontSize = 0.25 * windowHeight
-    love.graphics.setFont(love.graphics.newFont(fontSize))
-    love.graphics.printf("PONG", 0, 0.5 * windowHeight - 0.5 * fontSize, windowWidth, "center")
+    application:draw()
 end
