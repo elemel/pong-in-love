@@ -35,9 +35,12 @@ function GameScreen:draw()
 end
 
 function GameScreen:keypressed(key, isrepeat)
-    if key == "left" and not isrepeat then
-        local screen = self._application:createScreen("title", {})
-        self._application:setScreen(screen)
+    if not isrepeat then
+        local name = self._config.links and self._config.links[key]
+        if name then
+            local screen = self._application:createScreen(name)
+            self._application:setScreen(screen)
+        end
     end
 end
 

@@ -13,7 +13,6 @@ end
 function FontFactory:create(size)
     size = math.floor(size + 0.5)
     if not self._fonts[size] then
-        print(size)
         self._fonts[size] = love.graphics.newFont(size)
     end
     return self._fonts[size]
